@@ -95,6 +95,7 @@ public class MyHashTable<K, V> {
 
             head = head.next;
         }
+
         return null;
     }
 
@@ -110,6 +111,7 @@ public class MyHashTable<K, V> {
         while (head != null) {
             if (head.key.equals(key))
                 break;
+
             prev = head;
             head = head.next;
         }
@@ -118,6 +120,7 @@ public class MyHashTable<K, V> {
             return null;
 
         size--;
+
         if (prev != null)
             prev.next = head.next;
 
@@ -165,6 +168,10 @@ public class MyHashTable<K, V> {
         return null;
     }
 
+    /**
+     * Prints how many elements each bucket have.
+     * Method was created for test.
+     */
     public void printDistribution() {
         System.out.println("Distribution of elements in hash table buckets:");
         for (int i = 0; i < M; i++) {
@@ -174,8 +181,8 @@ public class MyHashTable<K, V> {
                 count++;
                 node = node.next;
             }
+
             System.out.println("Bucket " + (i + 1) + " has " + count + " elements.");
         }
     }
-
 }

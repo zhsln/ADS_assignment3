@@ -1,8 +1,10 @@
-import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Stack;
 
+/**
+ * Binary search tree class.
+ * @param <K> key
+ * @param <V> value
+ */
 public class BST<K extends Comparable<K>, V> {
     private class Node {
         private K key;
@@ -15,7 +17,14 @@ public class BST<K extends Comparable<K>, V> {
         }
     }
 
+    /**
+     * First element of the binary tree.
+     */
     private Node root;
+
+    /**
+     * Size of BST.
+     */
     private int size;
 
     /**
@@ -43,6 +52,14 @@ public class BST<K extends Comparable<K>, V> {
         root = put(root, key, val);
     }
 
+    /**
+     * Overloaded method to insert or update the value associated with a given key.
+     * Recursive method.
+     * @param node Node.
+     * @param key The key of the node to insert.
+     * @param val The value associated with the key.
+     * @return putted Node.
+     */
     private Node put(Node node, K key, V val) {
         if (node == null) { // Base case. If current node is null, create a new node with the key-value pair.
             size++;
@@ -72,6 +89,12 @@ public class BST<K extends Comparable<K>, V> {
         return get(root, key);
     }
 
+    /**
+     * Overloaded method that retrieves the value for a given key.
+     * @param node Node.
+     * @param key The key whose value is to be retrieved.
+     * @return The value associated with the key, or null if the key is not found.
+     */
     private V get(Node node, K key) {
         while (node != null) {
             int cmp = key.compareTo(node.key); // Navigate the tree based on comparison of keys.
@@ -97,6 +120,12 @@ public class BST<K extends Comparable<K>, V> {
         root = delete(root, key);
     }
 
+    /**
+     * Overloaded method that removes the node with the specified key.
+     * @param node Node.
+     * @param key The key of the node to be removed.
+     * @return removed node.
+     */
     private Node delete(Node node, K key) {
         if (node == null) return null; // Base case: Key not found.
 
@@ -126,6 +155,11 @@ public class BST<K extends Comparable<K>, V> {
         return node;
     }
 
+    /**
+     * Retrieves the smallest node in the BST.
+     * @param node Node.
+     * @return Smallest node in BST.
+     */
     private Node min(Node node) {
         while (node.left != null) // Find the minimum key node by always going left.
             node = node.left;
@@ -133,6 +167,11 @@ public class BST<K extends Comparable<K>, V> {
         return node;
     }
 
+    /**
+     * Recursive method that deletes smallest node in BST.
+     * @param node Node.
+     * @return Deleted node.
+     */
     private Node deleteMin(Node node) {
         // Recursively go left to find and remove the minimum node.
         if (node.left == null) // Base case.
@@ -144,8 +183,10 @@ public class BST<K extends Comparable<K>, V> {
     }
 
     /**
-     *
-     * @return
+     * Iterator...
+     * It is Iterable<Node>, not Iterable<K> to make it possible
+     * for both key and value to be accessible during the iteration.
+     * @return arraylist of nodes.
      */
     public Iterable<Node> iterator() {
         ArrayList<Node> nodes = new ArrayList<>();
@@ -153,19 +194,18 @@ public class BST<K extends Comparable<K>, V> {
         return nodes;
     }
 
-    private void inOrderTraversal(Node x, ArrayList<Node> nodes) {
-        if (x == null) return;
-        inOrderTraversal(x.left, nodes);
-        nodes.add(x);
-        inOrderTraversal(x.right, nodes);
-    }
+    /**
+     * In-order traversal, which means traverse left subtree starting from root, and then right subtree.
+     * @param node Node.
+     * @param nodes Arraylist of nodes.
+     */
+    private void inOrderTraversal(Node node, ArrayList<Node> nodes) {
+        if (node == null)
+            return;
 
-    private void inOrder(Node x, ArrayList<K> keys) {
-        if (x != null) {
-            inOrder(x.left, keys);
-            keys.add(x.key);
-            inOrder(x.right, keys);
-        }
+        inOrderTraversal(node.left, nodes);
+        nodes.add(node);
+        inOrderTraversal(node.right, nodes);
     }
 }
 

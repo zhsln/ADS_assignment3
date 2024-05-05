@@ -1,3 +1,6 @@
+/**
+ * Class that created for test of MyHashTable class.
+ */
 public class HashTableTest {
     public static void main(String[] args) {
         MyHashTable<MyTestingClass, Student> table = new MyHashTable<>();
